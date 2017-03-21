@@ -16,7 +16,7 @@ required_plugins.each do |plugin|
 end
 
 Vagrant.configure('2') do |config|
-  config.vm.box = 'ubuntu-16.04-amd64'
+  config.vm.box = 'ubuntu/xenial64'
 
   config.vm.provider :virtualbox do |vb|
     vb.linked_clone = true
