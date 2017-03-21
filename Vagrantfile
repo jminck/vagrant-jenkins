@@ -7,6 +7,14 @@ config_windows_ip   = '10.10.10.102'
 config_macos_fqdn   = "macos.#{config_jenkins_fqdn}"
 config_macos_ip     = '10.10.10.103'
 
+#------------------------------------------------------------------------------
+#Auto install required plugins 
+#------------------------------------------------------------------------------
+required_plugins = %w(vagrant-triggers)
+required_plugins.each do |plugin|
+    system "vagrant plugin install #{plugin}" unless Vagrant.has_plugin? plugin
+end
+
 Vagrant.configure('2') do |config|
   config.vm.box = 'ubuntu-16.04-amd64'
 
