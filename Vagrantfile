@@ -41,7 +41,7 @@ Vagrant.configure('2') do |config|
   end
 
   config.vm.define :windows do |config|
-    config.vm.box = 'windows_2012_r2'
+    config.vm.box = 'devopsguys/Windows2012R2Eval'
     config.vm.hostname = 'windows'
     config.vm.network :private_network, ip: config_windows_ip
     config.vm.provision :shell, inline: "echo '#{config_jenkins_ip} #{config_jenkins_fqdn}' | Out-File -Encoding ASCII -Append c:/Windows/System32/drivers/etc/hosts"
