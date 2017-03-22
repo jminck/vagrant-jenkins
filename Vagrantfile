@@ -27,6 +27,7 @@ Vagrant.configure('2') do |config|
   config.vm.define :jenkins do |config|
     config.vm.hostname = config_jenkins_fqdn
     config.vm.network :private_network, ip: config_jenkins_ip
+    config.vm.network "forwarded_port", guest: 443, host: 8080
     config.vm.provision :shell, inline: "echo '#{config_ubuntu_ip} #{config_ubuntu_fqdn}' >>/etc/hosts"
     config.vm.provision :shell, inline: "echo '#{config_windows_ip} #{config_windows_fqdn}' >>/etc/hosts"
     config.vm.provision :shell, inline: "echo '#{config_macos_ip} #{config_macos_fqdn}' >>/etc/hosts"
