@@ -178,7 +178,7 @@ server {
     }
 }
 EOF
-rm /etc/nginx/sites-enabled/default
+rm /etc/nginx/sites-enabled/default || true
 ln -s ../sites-available/jenkins /etc/nginx/sites-enabled/jenkins
 systemctl restart nginx
 

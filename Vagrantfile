@@ -8,7 +8,7 @@ config_macos_fqdn   = "macos.#{config_jenkins_fqdn}"
 config_macos_ip     = '10.10.10.103'
 
 Vagrant.configure('2') do |config|
-  config.vm.box = 'ubuntu-16.04-amd64'
+  config.vm.box = 'ubuntu/xenial64'
 
   config.vm.provider :virtualbox do |vb|
     vb.linked_clone = true
@@ -19,6 +19,7 @@ Vagrant.configure('2') do |config|
   config.vm.define :jenkins do |config|
     config.vm.hostname = config_jenkins_fqdn
     config.vm.network :private_network, ip: config_jenkins_ip
+    config.vm.network "forwarded_port", guest: 443, host: 443
     config.vm.provision :shell, inline: "echo '#{config_ubuntu_ip} #{config_ubuntu_fqdn}' >>/etc/hosts"
     config.vm.provision :shell, inline: "echo '#{config_windows_ip} #{config_windows_fqdn}' >>/etc/hosts"
     config.vm.provision :shell, inline: "echo '#{config_macos_ip} #{config_macos_fqdn}' >>/etc/hosts"
@@ -33,7 +34,7 @@ Vagrant.configure('2') do |config|
   end
 
   config.vm.define :windows do |config|
-    config.vm.box = 'windows_2012_r2'
+    config.vm.box = 'devopsguys/Windows2012R2Eval'
     config.vm.hostname = 'windows'
     config.vm.network :private_network, ip: config_windows_ip
     config.vm.provision :shell, inline: "echo '#{config_jenkins_ip} #{config_jenkins_fqdn}' | Out-File -Encoding ASCII -Append c:/Windows/System32/drivers/etc/hosts"
