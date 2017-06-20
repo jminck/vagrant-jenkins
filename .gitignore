@@ -2,3 +2,5 @@
 tmp/
 *.xip
 *.cpio.xz*
+*.log
+
