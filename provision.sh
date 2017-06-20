@@ -7,7 +7,7 @@ domain=$(hostname --fqdn)
 config_authentication='jenkins'
 # OR use LDAP.
 # NB this assumes you are running the Active Directory from https://github.com/rgl/windows-domain-controller-vagrant.
-# NB AND you must manually copy its tmp/ExampleEnterpriseRootCA.der file to this environment tmp/ directory. 
+# NB AND you must manually copy its tmp/ExampleEnterpriseRootCA.der file to this environment tmp/ directory.
 #config_authentication='ldap'
 
 
@@ -53,7 +53,7 @@ systemctl restart jenkins
 less /var/log/jenkins/jenkins.log
 tail -f /var/log/jenkins/jenkins.log
 tail -f /var/log/jenkins/access.log | grep -v ajax
-cat /var/lib/jenkins/secrets/initialAdminPassword 
+cat /var/lib/jenkins/secrets/initialAdminPassword
 cd /var/lib/jenkins
 netstat -antp
 jcli version
@@ -197,7 +197,7 @@ chmod 751 /var/cache/jenkins
 pushd /var/lib/jenkins
 # disable security.
 # see https://wiki.jenkins-ci.org/display/JENKINS/Disable+security
-q
+
 xmlstarlet edit --inplace -u '/hudson/useSecurity' -v 'false' config.xml
 xmlstarlet edit --inplace -d '/hudson/authorizationStrategy' config.xml
 xmlstarlet edit --inplace -d '/hudson/securityRealm' config.xml
@@ -378,7 +378,7 @@ Jenkins.instance.securityRealm = new LDAPSecurityRealm(
     'DC=example,DC=com',
 
     // String userSearchBase:
-    // NB this is relative to rootDN. 
+    // NB this is relative to rootDN.
     'CN=Users',
 
     // String userSearch:
