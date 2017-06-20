@@ -71,7 +71,7 @@ alias l='ls -lF --color'
 alias ll='l -a'
 alias h='history 25'
 alias j='jobs -l'
-alias jcli='java -jar /var/cache/jenkins/war/WEB-INF/jenkins-cli.jar -s http://localhost:8080 -i ~/.ssh/id_rsa'
+alias jcli='sudo java -jar /var/cache/jenkins/war/WEB-INF/jenkins-cli.jar -s http://localhost:8080 -i ~/.ssh/id_rsa'
 alias jgroovy='jcli groovy'
 EOF
 
@@ -197,6 +197,7 @@ chmod 751 /var/cache/jenkins
 pushd /var/lib/jenkins
 # disable security.
 # see https://wiki.jenkins-ci.org/display/JENKINS/Disable+security
+q
 xmlstarlet edit --inplace -u '/hudson/useSecurity' -v 'false' config.xml
 xmlstarlet edit --inplace -d '/hudson/authorizationStrategy' config.xml
 xmlstarlet edit --inplace -d '/hudson/securityRealm' config.xml
