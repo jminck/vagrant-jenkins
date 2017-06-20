@@ -92,7 +92,7 @@ cat >bin/jenkins-slave <<EOF
 exec java -jar $PWD/lib/slave.jar
 EOF
 chmod +x bin/jenkins-slave
-wget -q https://$config_jenkins_master_fqdn/jnlpJars/slave.jar -O lib/slave.jar
+wget -q https://$config_jenkins_master_fqdn/jnlpJars/slave.jar -O lib/slave.jar --no-check-certificate
 popd
 
 
