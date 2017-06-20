@@ -198,11 +198,11 @@ pushd /var/lib/jenkins
 # disable security.
 # see https://wiki.jenkins-ci.org/display/JENKINS/Disable+security
 
-sudo xmlstarlet edit --inplace -u '/hudson/useSecurity' -v 'false' config.xml
-sudo xmlstarlet edit --inplace -d '/hudson/authorizationStrategy' config.xml
-sudo xmlstarlet edit --inplace -d '/hudson/securityRealm' config.xml
+sudo xmlstarlet edit --inplace -u '/hudson/useSecurity' -v 'false' config.xml > /tmp/xmlstarlet.log
+sudo xmlstarlet edit --inplace -d '/hudson/authorizationStrategy' config.xml >> /tmp/xmlstarlet.log
+sudo xmlstarlet edit --inplace -d '/hudson/securityRealm' config.xml >> /tmp/xmlstarlet.log
 # enable CLI/JNLP.
-sudo xmlstarlet edit --inplace -u '/hudson/slaveAgentPort' -v '9090' config.xml
+sudo xmlstarlet edit --inplace -u '/hudson/slaveAgentPort' -v '9090' config.xml >> /tmp/xmlstarlet.log
 # bind to localhost.
 sudo sed -i -E 's,^(JENKINS_ARGS="-.+),\1\nJENKINS_ARGS="$JENKINS_ARGS --httpListenAddress=127.0.0.1",' /etc/default/jenkins
 # configure access log.
