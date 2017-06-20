@@ -194,6 +194,7 @@ bash -c 'while [ ! -s /var/lib/jenkins/secrets/initialAdminPassword ]; do sleep 
 systemctl stop jenkins
 apt-get install -y xmlstarlet
 chmod 751 /var/cache/jenkins
+id
 pushd /var/lib/jenkins
 # disable security.
 # see https://wiki.jenkins-ci.org/display/JENKINS/Disable+security
