@@ -198,19 +198,19 @@ pushd /var/lib/jenkins
 # disable security.
 # see https://wiki.jenkins-ci.org/display/JENKINS/Disable+security
 
-xmlstarlet edit --inplace -u '/hudson/useSecurity' -v 'false' config.xml
-xmlstarlet edit --inplace -d '/hudson/authorizationStrategy' config.xml
-xmlstarlet edit --inplace -d '/hudson/securityRealm' config.xml
+sudo xmlstarlet edit --inplace -u '/hudson/useSecurity' -v 'false' config.xml
+sudo xmlstarlet edit --inplace -d '/hudson/authorizationStrategy' config.xml
+sudo xmlstarlet edit --inplace -d '/hudson/securityRealm' config.xml
 # enable CLI/JNLP.
-xmlstarlet edit --inplace -u '/hudson/slaveAgentPort' -v '9090' config.xml
+sudo xmlstarlet edit --inplace -u '/hudson/slaveAgentPort' -v '9090' config.xml
 # bind to localhost.
-sed -i -E 's,^(JENKINS_ARGS="-.+),\1\nJENKINS_ARGS="$JENKINS_ARGS --httpListenAddress=127.0.0.1",' /etc/default/jenkins
+sudo sed -i -E 's,^(JENKINS_ARGS="-.+),\1\nJENKINS_ARGS="$JENKINS_ARGS --httpListenAddress=127.0.0.1",' /etc/default/jenkins
 # configure access log.
 # NB this is useful for testing whether static files are really being handled by nginx.
-sed -i -E 's,^(JENKINS_ARGS="-.+),\1\nJENKINS_ARGS="$JENKINS_ARGS --accessLoggerClassName=winstone.accesslog.SimpleAccessLogger --simpleAccessLogger.format=combined --simpleAccessLogger.file=/var/log/jenkins/access.log",' /etc/default/jenkins
-sed -i -E 's,^(/var/log/jenkins/)jenkins.log,\1*.log,' /etc/logrotate.d/jenkins
+sudo sed -i -E 's,^(JENKINS_ARGS="-.+),\1\nJENKINS_ARGS="$JENKINS_ARGS --accessLoggerClassName=winstone.accesslog.SimpleAccessLogger --simpleAccessLogger.format=combined --simpleAccessLogger.file=/var/log/jenkins/access.log",' /etc/default/jenkins
+sudo sed -i -E 's,^(/var/log/jenkins/)jenkins.log,\1*.log,' /etc/logrotate.d/jenkins
 # disable showing the wizard on the first access.
-cp -p jenkins.install.UpgradeWizard.state jenkins.install.InstallUtil.lastExecVersion
+sudo cp -p jenkins.install.UpgradeWizard.state jenkins.install.InstallUtil.lastExecVersion
 popd
 systemctl start jenkins
 bash -c 'while ! wget -q --spider http://localhost:8080/cli; do sleep 1; done;'
