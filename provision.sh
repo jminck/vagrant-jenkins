@@ -179,7 +179,7 @@ server {
 }
 EOF
 rm /etc/nginx/sites-enabled/default || true
-ln -s ../sites-available/jenkins /etc/nginx/sites-enabled/jenkins
+ln -s ../sites-available/jenkins /etc/nginx/sites-enabled/jenkins || true
 systemctl restart nginx
 
 
@@ -320,6 +320,11 @@ done
 # configure security.
 
 # generate a default SSH key-pair for use in the Jenkins CLI authentication.
+
+#delete existing ssh keys if this script is being rerun
+rm ~/.ssh/id_rsa
+rm /var/lib/jenkins/.ssh/id_rsa
+
 ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa
 # also generate one for the jenkins account that communicates with the slaves.
 su jenkins -c 'ssh-keygen -q -t rsa -N "" -f ~/.ssh/id_rsa'
@@ -343,9 +348,6 @@ u.fullName = 'Vagrant'
 u.addProperty(new Mailer.UserProperty('vagrant@example.com'))
 u.addProperty(new UserPropertyImpl(args[0]+"\n"))
 u.save()
-
-Jenkins.instance.authorizationStrategy = new FullControlOnceLoggedInAuthorizationStrategy(
-  allowAnonymousRead: true)
 
 Jenkins.instance.save()
 EOF
