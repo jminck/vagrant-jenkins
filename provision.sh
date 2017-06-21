@@ -322,8 +322,8 @@ done
 # generate a default SSH key-pair for use in the Jenkins CLI authentication.
 
 #delete existing ssh keys if this script is being rerun
-rm ~/.ssh/id_rsa
-rm /var/lib/jenkins/.ssh/id_rsa
+rm ~/.ssh/id_rsa || true
+rm /var/lib/jenkins/.ssh/id_rsa || true
 
 ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa
 # also generate one for the jenkins account that communicates with the slaves.
